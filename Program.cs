@@ -11,11 +11,15 @@ List<Order> repo = new List<Order>()
 
 app.MapGet("/", () => repo);
 app.MapPost("/", (Order ord) => repo.Add(ord));
-app.MapPut("/{number}", (int number) =>
+app.MapPut("/{number}", (int number, OrderUpdateDTO dto) =>
 {
-
-
-
+    Order buffer = repo.Find(ord => ord.Number == number);
+    if (buffer == null)
+        return Results.NotFound("Нету");
+    buffer.Status = dto.Status;
+    buffer.Description = dto.Description;
+    buffer.Master = dto.Master;
+    return Results.Json(buffer);
 });
 app.Run();
 
@@ -36,8 +40,8 @@ class Order
     int month;
     int year;
     string device;
-    string Problem;
-    string Description;
+    string problem;
+    string description;
     string client;
     string status;
     string master;
@@ -49,8 +53,8 @@ class Order
         Month = month;
         Year = year;
         Device = device;
-        Problem1 = problem;
-        Description1 = description;
+        Problem = problem;
+        Description = description;
         Client = client;
         Status = status;
         Master = master;
@@ -61,8 +65,8 @@ class Order
     public int Month { get => month; set => month = value; }
     public int Year { get => year; set => year = value; }
     public string Device { get => device; set => device = value; }
-    public string Problem1 { get => Problem; set => Problem = value; }
-    public string Description1 { get => Description; set => Description = value; }
+    public string Problem { get => problem; set => problem = value; }
+    public string Description { get => description; set => description = value; }
     public string Client { get => client; set => client = value; }
     public string Status { get => status; set => status = value; }
     public string Master { get => master; set => master = value; }
