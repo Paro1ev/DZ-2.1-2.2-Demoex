@@ -19,7 +19,16 @@ app.MapPut("/{number}", (int number) =>
 });
 app.Run();
 
+class OrderUpdateDTO
+{
+    string status;
+    string description;
+    string master;
 
+    public string Status { get => status; set => status = value; }
+    public string Description { get => description; set => description = value; }
+    public string Master { get => master; set => master = value; }
+}
 class Order
 {
     int number;
