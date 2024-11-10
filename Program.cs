@@ -11,6 +11,12 @@ List<Order> repo = new List<Order>()
 
 app.MapGet("/", () => repo);
 app.MapPost("/", (Order ord) => repo.Add(ord));
+app.MapPut("/{number}", (int number) =>
+{
+
+
+
+});
 app.Run();
 
 
