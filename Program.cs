@@ -1,8 +1,16 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
 
+List<Order> repo = new List<Order>()
+{
+    new Order(1, 03, 03, 2005, "Тостер", "Сгорел", "Включил и сгорел", "Кирилл", "В процессе", "Светлоликий")
+
+};
+
+
+app.MapGet("/", () => repo);
+app.MapPost("/", (Order ord) => repo.Add(ord));
 app.Run();
 
 
@@ -19,15 +27,15 @@ class Order
     string status;
     string master;
 
-    public Order(int number, int day, int month, int year, string device, string problem1, string description1, string client, string status, string master)
+    public Order(int number, int day, int month, int year, string device, string problem, string description, string client, string status, string master)
     {
         Number = number;
         Day = day;
         Month = month;
         Year = year;
         Device = device;
-        Problem1 = problem1;
-        Description1 = description1;
+        Problem1 = problem;
+        Description1 = description;
         Client = client;
         Status = status;
         Master = master;
